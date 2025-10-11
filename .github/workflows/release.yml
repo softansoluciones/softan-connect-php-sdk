@@ -8,6 +8,10 @@ on:
 jobs:
   test-and-release:
     runs-on: ubuntu-latest
+    env:
+      REPO_URL: https://github.com/softansoluciones/softan-connect-php-sdk
+      PACKAGIST_USERNAME: ${{ secrets.PACKAGIST_USERNAME }}
+      PACKAGIST_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,6 +32,14 @@ jobs:
       - name: Run tests
         run: vendor/bin/phpunit --no-coverage
 
+      - name: Notify Packagist (optional)
+        if: ${{ env.PACKAGIST_USERNAME != '' && env.PACKAGIST_TOKEN != '' }}
+        run: |
+          curl -sS -X POST \
+            -H 'Content-Type: application/json' \
+            -d '{"repository":{"url":"'"${REPO_URL}"'"}}' \
+            "https://packagist.org/api/update-package?username=${PACKAGIST_USERNAME}&apiToken=${PACKAGIST_TOKEN}"
+
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
@@ -38,4 +50,3 @@ jobs:
           draft: false
           prerelease: false
           generate_release_notes: true
-
