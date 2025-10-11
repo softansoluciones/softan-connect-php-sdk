@@ -1,5 +1,9 @@
 # Softan Connect SDK (PHP)
 
+[![Latest Stable Version](https://img.shields.io/packagist/v/softan/connect-php-sdk.svg)](https://packagist.org/packages/softan/connect-php-sdk)
+[![Total Downloads](https://img.shields.io/packagist/dt/softan/connect-php-sdk.svg)](https://packagist.org/packages/softan/connect-php-sdk)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 ## Descripción
 - SDK oficial para integrar aplicaciones con Softan Connect en PHP.
 - Expone métodos de alto nivel para crear y validar tokens y OTP.

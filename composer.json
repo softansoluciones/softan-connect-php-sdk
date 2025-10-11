@@ -34,5 +34,10 @@
   "scripts": {
     "test": "phpunit",
     "test:ci": "phpunit --testsuite default"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "0.1.x-dev"
+    }
   }
 }
