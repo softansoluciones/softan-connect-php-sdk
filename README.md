@@ -12,26 +12,24 @@
 ### Comandos CLI (referencia rápida)
 | Comando                         | Propósito                                   |
 |---------------------------------|---------------------------------------------|
-| `vendor/bin/install.php`        | Crear configuración inicial (stg)           |
-| `vendor/bin/add-env.php`        | Agregar/actualizar credenciales de `prod`   |
-| `vendor/bin/switch-env.php`     | Cambiar entorno activo (stg/prod)           |
+| `php vendor/bin/install.php`        | Crear configuración inicial (stg)           |
+| `php vendor/bin/add-env.php`        | Agregar/actualizar credenciales de `prod`   |
+| `php vendor/bin/switch-env.php`     | Cambiar entorno activo (stg/prod)           |
 
-Nota Windows: si no se ejecutan directamente, usa `php vendor/bin/install.php` (igual para los demás).
+Nota Windows: si no se ejecutan directamente, usa php vendor/bin/install.php (igual para los demás).
 
 ## Requisitos
 - PHP 8.0 o superior
 - Composer 2
 
-## Instalación (Packagist — recomendado)
+## Instalación (Packagist - recomendado)
 - Instalación con un solo comando:
 ```bash
 composer require softan/connect-php-sdk:^0.0.2
 ```
 - Luego inicializa la configuración (stg por defecto):
-```bash
-vendor/bin/install.php
-# En Windows si es necesario: php vendor/bin/install.php
-```
+  - Windows (PowerShell): `php vendor/bin/install.php` o `php vendor/bin/install.php`
+  - macOS/Linux: `php vendor/bin/install.php`
 
 ### Alternativa: instalación desde GitHub (VCS)
 Usa esto solo si necesitas apuntar a `dev-main` o probar cambios previos a un tag.
@@ -45,9 +43,8 @@ composer config repositories.softan-sdk vcs https://github.com/softansoluciones/
 composer require softan/connect-php-sdk:dev-main
 ```
 3) Inicializa configuración:
-```bash
-vendor/bin/install.php
-```
+  - Windows (PowerShell): `php vendor/bin/install.php` o `php vendor/bin/install.php`
+  - macOS/Linux: `php vendor/bin/install.php`
 Notas:
 - Si tu proyecto no tiene Composer aún, `composer require` creará `composer.json` automáticamente.
 - Requiere Git instalado para resolver el repositorio VCS.
@@ -58,10 +55,8 @@ Notas:
 composer require softan/connect-php-sdk:^0.0.2
 ```
 2) Crear configuración base (stg por defecto)
-```bash
-vendor/bin/install.php
-# En Windows si es necesario: php vendor/bin/install.php
-```
+  - Windows (PowerShell): `php vendor/bin/install.php` o `php vendor/bin/install.php`
+  - macOS/Linux: `php vendor/bin/install.php`
 3) Usar en código (crear y consultar estado de token)
 ```php
 <?php
@@ -87,17 +82,14 @@ if ($token) {
 
 ## Primeros pasos (CLI)
 - Instalar y crear la configuración (stg por defecto):
-```bash
-vendor/bin/install.php
-```
+  - Windows (PowerShell): `php vendor/bin/install.php` o `php vendor/bin/install.php`
+  - macOS/Linux: `php vendor/bin/install.php`
 - Agregar/actualizar credenciales de producción:
-```bash
-vendor/bin/add-env.php
-```
+  - Windows (PowerShell): `php vendor/bin/add-env.php` o `php vendor/bin/add-env.php`
+  - macOS/Linux: `php vendor/bin/add-env.php`
 - Cambiar entorno activo (stg/prod):
-```bash
-vendor/bin/switch-env.php
-```
+  - Windows (PowerShell): `php vendor/bin/switch-env.php` o `php vendor/bin/switch-env.php`
+  - macOS/Linux: `php vendor/bin/switch-env.php`
 
 ## Uso en código
 Importa los métodos de alto nivel desde `SoftanConnect\Services` y realiza llamadas según tu caso de uso.
@@ -123,8 +115,19 @@ $resCreds = Services::validateCredentials();
 
 ### CLI en modo no interactivo (opcional)
 Puedes pasar parámetros por flags si automatizas la instalación:
+- Windows (PowerShell):
+```powershell
+php vendor/bin/install.php `
+  --email="dev@example.com" `
+  --api-key="<X-API-KEY>" `
+  --connect-info="<X-Connect-Info>" `
+  --app-id="com.example.app" `
+  --env=stg `
+  --verify-tls=true
+```
+- macOS/Linux:
 ```bash
-vendor/bin/install.php \
+php vendor/bin/install.php \
   --email="dev@example.com" \
   --api-key="<X-API-KEY>" \
   --connect-info="<X-Connect-Info>" \
@@ -132,6 +135,11 @@ vendor/bin/install.php \
   --env=stg \
   --verify-tls=true
 ```
+
+Tips en Windows
+- Si `php vendor/bin/install.php` no ejecuta, llama con `php vendor/bin/install.php`.
+- Verifica binarios: `dir vendor\bin` debería listar `install.php`, `add-env.php`, `switch-env.php` (y sus .bat).
+- Si tu proyecto redefine `bin-dir`, usa esa ruta: `composer config bin-dir`.
 
 ## Configuración
 - Transparente para el usuario final: la configuración se gestiona mediante los comandos CLI.
@@ -175,9 +183,9 @@ vendor/bin/install.php \
 - 0 o 404: puede indicar datos inexistentes/inactivos o `user_id` inválido.
 
 ## Comandos disponibles
-- `vendor/bin/install.php` → Instala y configura el entorno `stg`.
-- `vendor/bin/add-env.php` → Agrega o actualiza credenciales de `prod`.
-- `vendor/bin/switch-env.php` → Cambia el entorno activo (stg/prod).
+- `php vendor/bin/install.php` → Instala y configura el entorno `stg`.
+- `php vendor/bin/add-env.php` → Agrega o actualiza credenciales de `prod`.
+- `php vendor/bin/switch-env.php` → Cambia el entorno activo (stg/prod).
 
 ## Compatibilidad
 - PHP: 8.0+
@@ -196,4 +204,8 @@ composer test
 
 ## Licencia
 - MIT (ver `composer.json`).
+
+
+
+
 
