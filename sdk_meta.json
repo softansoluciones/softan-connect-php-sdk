@@ -1,5 +1,5 @@
 {
-  "sdk_version": "0.1.0",
+  "sdk_version": "0.0.2",
   "sdk_type": "php",
   "default_environment": "stg",
   "base_urls": {

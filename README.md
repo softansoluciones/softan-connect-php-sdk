@@ -25,7 +25,7 @@ Nota Windows: si no se ejecutan directamente, usa `php vendor/bin/install.php` (
 ## Instalación (Packagist — recomendado)
 - Instalación con un solo comando:
 ```bash
-composer require softan/connect-php-sdk:^0.1
+composer require softan/connect-php-sdk:^0.0.2
 ```
 - Luego inicializa la configuración (stg por defecto):
 ```bash
@@ -55,7 +55,7 @@ Notas:
 ## Quickstart (3 pasos)
 1) Instalar el SDK desde Packagist
 ```bash
-composer require softan/connect-php-sdk:^0.1
+composer require softan/connect-php-sdk:^0.0.2
 ```
 2) Crear configuración base (stg por defecto)
 ```bash
@@ -121,6 +121,18 @@ $resVal = Services::validateOtp(["otp_code" => 123456, "user_id" => 12345]);
 $resCreds = Services::validateCredentials();
 ```
 
+### CLI en modo no interactivo (opcional)
+Puedes pasar parámetros por flags si automatizas la instalación:
+```bash
+vendor/bin/install.php \
+  --email="dev@example.com" \
+  --api-key="<X-API-KEY>" \
+  --connect-info="<X-Connect-Info>" \
+  --app-id="com.example.app" \
+  --env=stg \
+  --verify-tls=true
+```
+
 ## Configuración
 - Transparente para el usuario final: la configuración se gestiona mediante los comandos CLI.
 - No es necesario (ni recomendado) editar ni versionar `sdk_config.json` manualmente.
@@ -137,6 +149,26 @@ $resCreds = Services::validateCredentials();
   - `Services::requestOtp($data, null, false)`
   - `Services::validateOtp($data, null, false)`
 - No incluyas `/public` en tus rutas; el SDK se encarga de la base URL.
+
+## Cache de tokens (anti-spam de llamadas)
+- Por defecto, el SDK cachea:
+  - La respuesta de creación de token por `user_id` durante 1 hora.
+  - La respuesta de estado de token por `(user_id, token)` durante 1 hora.
+- Esto reduce llamadas repetitivas al backend en escenarios multiusuario.
+- Detalles:
+  - Directorio de cache: `cache/` junto a `sdk_config.json` (configurable).
+  - TTL por defecto: 3600 segundos (configurable en `sdk_config.json` → `cache.ttl_seconds`).
+  - Claves de cache: incluyen `env`, `app_identifier` y `user_id` (y `token` para estado).
+- Para desactivar o personalizar:
+  - Edita `sdk_config.json` y agrega, por ejemplo:
+```json
+{
+  "cache": {
+    "dir": "/ruta/absoluta/opcional",
+    "ttl_seconds": 1800
+  }
+}
+```
 
 ## Solución de problemas
 - 403 al llamar a tokens/otp: verifica que configuraste credenciales (CLI) y que el entorno activo corresponde.
@@ -164,3 +196,4 @@ composer test
 
 ## Licencia
 - MIT (ver `composer.json`).
+
