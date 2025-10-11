@@ -1,0 +1,18 @@
+{
+  "sdk_version": "0.1.0",
+  "sdk_type": "php",
+  "default_environment": "stg",
+  "base_urls": {
+    "dev": "http://localhost/softan-connect/main-api/public/",
+    "stg": "https://connect-stg.softansoluciones.com/public/",
+    "prod": "https://connect.softansoluciones.com/public/"
+  },
+  "endpoints": {
+    "developers": "developers",
+    "developers_validate": "developers/validate",
+    "tokens_create": "tokens",
+    "tokens_status": "tokens/status",
+    "otp_create": "otp",
+    "otp_validate": "otp/validate"
+  }
+}

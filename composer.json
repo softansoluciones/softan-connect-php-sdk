@@ -1,0 +1,26 @@
+{
+  "name": "softan/connect-php-sdk",
+  "description": "SDK PHP ligero para Softan Connect (tokens/otp/developers)",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "SoftanConnect\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5"
+  },
+  "bin": [
+    "bin/install.php",
+    "bin/add-env.php",
+    "bin/switch-env.php"
+  ],
+  "scripts": {
+    "test": "phpunit",
+    "test:ci": "phpunit --testsuite default"
+  }
+}
