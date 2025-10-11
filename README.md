@@ -42,6 +42,30 @@ composer require softan/connect-php-sdk:dev-main
 composer require softan/connect-php-sdk:^0.1
 ```
 
+### Instalación rápida (sin editar composer.json a mano)
+- Windows (PowerShell):
+```powershell
+composer config repositories.softan-sdk vcs https://github.com/softansoluciones/softan-connect-php-sdk
+composer require softan/connect-php-sdk:dev-main
+php vendor/bin/install.php
+```
+- macOS/Linux (bash):
+```bash
+composer config repositories.softan-sdk vcs https://github.com/softansoluciones/softan-connect-php-sdk \
+  && composer require softan/connect-php-sdk:dev-main \
+  && vendor/bin/install.php
+```
+- Notas:
+  - Si tu proyecto no tiene Composer aún, `composer require` creará `composer.json` automáticamente.
+  - Requiere Git instalado para resolver el repositorio VCS.
+
+### Cuando esté en Packagist (flujo recomendado)
+- Instalación con un solo comando (sin repositorios VCS):
+```bash
+composer require softan/connect-php-sdk:^0.1
+```
+  - Con esto Composer resolverá el paquete desde Packagist y añadirá la dependencia automáticamente.
+
 ## Quickstart (3 pasos)
 1) Instalar el SDK desde GitHub
 ```bash
