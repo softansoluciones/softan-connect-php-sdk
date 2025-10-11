@@ -55,3 +55,5 @@ composer test
 
 - CI: el workflow en `.github/workflows/ci.yml` valida composer e integra PHPUnit en PHP 8.1/8.2/8.3.
 
+## Releases
+- Consulta `RELEASE.md` para el proceso de publicación y `CHANGELOG.md` para notas de versión.
