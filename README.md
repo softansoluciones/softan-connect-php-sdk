@@ -25,7 +25,7 @@ Nota Windows: si no se ejecutan directamente, usa php vendor/bin/install.php (ig
 ## Instalación (Packagist - recomendado)
 - Instalación con un solo comando:
 ```bash
-composer require softan/connect-php-sdk:^0.0.2
+composer require softan/connect-php-sdk:^0.0.3
 ```
 - Luego inicializa la configuración (stg por defecto):
   - Windows (PowerShell): `php vendor/bin/install.php` o `php vendor/bin/install.php`
@@ -52,7 +52,7 @@ Notas:
 ## Quickstart (3 pasos)
 1) Instalar el SDK desde Packagist
 ```bash
-composer require softan/connect-php-sdk:^0.0.2
+composer require softan/connect-php-sdk:^0.0.3
 ```
 2) Crear configuración base (stg por defecto)
   - Windows (PowerShell): `php vendor/bin/install.php` o `php vendor/bin/install.php`
