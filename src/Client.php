@@ -3,13 +3,45 @@ namespace SoftanConnect;
 
 final class Client
 {
-    public static function request(string $endpoint, string $method = 'GET', array $headers = [], ?array $data = null, ?string $baseUrlOverride = null, bool $verifyTLS = true): array
-    {
-        $url = ($baseUrlOverride ?: Config::getBaseUrl()) . ltrim($endpoint, '/');
+    /**
+     * Perform an HTTP request to the Softan Connect API.
+     *
+     * @param string      $endpoint        Relative endpoint (e.g. 'tokens', 'otp/validate').
+     * @param string      $method          HTTP method (GET, POST, PUT, DELETE).
+     * @param array       $headers         Associative array of request headers.
+     * @param array|null  $data            Request body (will be JSON-encoded).
+     * @param string|null $baseUrlOverride Override the base URL from sdk_meta.json.
+     * @param bool        $verifyTLS       Whether to verify TLS certificates.
+     * @param bool        $verbose         Print debug info to stdout (for CLI tools only).
+     *
+     * @return array Decoded JSON response, or ['error' => ..., 'detail' => ...] on failure.
+     */
+    public static function request(
+        string  $endpoint,
+        string  $method          = 'GET',
+        array   $headers         = [],
+        ?array  $data            = null,
+        ?string $baseUrlOverride = null,
+        bool    $verifyTLS       = true,
+        bool    $verbose         = false
+    ): array {
+        $base = $baseUrlOverride ?: Config::getBaseUrl();
+        $url  = rtrim($base, '/') . '/' . ltrim($endpoint, '/');
 
-        $ch = curl_init();
         $httpHeaders = [];
-        foreach ($headers as $k => $v) { $httpHeaders[] = $k . ': ' . $v; }
+        foreach ($headers as $k => $v) {
+            $httpHeaders[] = $k . ': ' . $v;
+        }
+
+        if ($verbose) {
+            echo "\n→ {$method} {$url}\n";
+            foreach ($headers as $k => $v) {
+                echo "  {$k}: {$v}\n";
+            }
+            if ($data !== null) {
+                echo '  Body: ' . json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "\n";
+            }
+        }
 
         $opts = [
             CURLOPT_URL            => $url,
@@ -28,20 +60,23 @@ final class Client
             $opts[CURLOPT_SSL_VERIFYHOST] = false;
         }
 
+        $ch = curl_init();
         curl_setopt_array($ch, $opts);
         $raw  = curl_exec($ch);
         $err  = curl_error($ch);
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE) ?: 0;
+        $code = (int) (curl_getinfo($ch, CURLINFO_HTTP_CODE) ?: 0);
         curl_close($ch);
 
         if ($raw === false) {
-            return ['error' => 'network_error', 'detail' => $err];
+            return ['error' => 'network_error', 'detail' => $err, 'http_status' => 0];
         }
 
-        $json = json_decode($raw, true);
+        $json = json_decode((string) $raw, true);
+
         if (json_last_error() === JSON_ERROR_NONE && is_array($json)) {
             return $json;
         }
-        return ['status_code' => $code, 'raw' => $raw];
+
+        return ['error' => 'parse_error', 'http_status' => $code, 'raw' => $raw];
     }
 }

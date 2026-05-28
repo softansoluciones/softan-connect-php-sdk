@@ -19,7 +19,7 @@
     }
   },
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.1",
     "ext-curl": "*",
     "ext-openssl": "*"
   },
@@ -29,7 +29,8 @@
   "bin": [
     "bin/install.php",
     "bin/add-env.php",
-    "bin/switch-env.php"
+    "bin/switch-env.php",
+    "bin/flows.php"
   ],
   "scripts": {
     "test": "phpunit",
