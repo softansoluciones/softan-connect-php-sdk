@@ -27,9 +27,9 @@
     "phpunit/phpunit": "^10.5"
   },
   "bin": [
-    "bin/install.php",
-    "bin/add-env.php",
-    "bin/switch-env.php",
+    "bin/connect-setup.php",
+    "bin/connect-add-env.php",
+    "bin/connect-switch-env.php",
     "bin/flows.php"
   ],
   "scripts": {
