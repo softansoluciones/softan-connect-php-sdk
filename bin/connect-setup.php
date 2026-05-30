@@ -76,8 +76,8 @@ echo "Validando credenciales contra $activeEnv...\n";
 $headers = Headers::buildValidationHeaders($apiKey, $xcInfo, $sdkHash);
 $res = Services::validateCredentials($headers, $verifyTls, $baseUrl);
 
-if (!empty($res['Response']['api-key']) && !empty($res['Response']['connect-info'])) {
-    if (SDK::saveJson(SDK::CONFIG_PATH, $cfg)) { echo "\nOK - Configuracion guardada en sdk_config.json\n"; exit(0);} 
+if (($res['success'] ?? false) && !empty($res['data']['credentials']['x_api_key'])) {
+    if (SDK::saveJson(SDK::CONFIG_PATH, $cfg)) { echo "\nOK - Configuracion guardada en sdk_config.json\n"; exit(0);}
     fwrite(STDERR, "\nERROR - No se pudo escribir sdk_config.json\n"); exit(1);
 }
 
