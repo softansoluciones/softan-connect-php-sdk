@@ -1,6 +1,6 @@
 {
   "sdk_name": "Softan Connect SDK",
-  "sdk_version": "0.0.5",
+  "sdk_version": "0.0.6",
   "sdk_type": "php",
   "sdk_author": "Softan Soluciones",
   "default_environment": "stg",

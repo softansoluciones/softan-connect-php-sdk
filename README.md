@@ -24,7 +24,7 @@ SDK oficial para integrar aplicaciones con Softan Connect en PHP. Expone método
 ## Instalación
 
 ```bash
-composer require softan/connect-php-sdk:^0.0.3
+composer require softan/connect-php-sdk:^0.0.6
 ```
 
 Luego inicializa la configuración con tus credenciales (stg por defecto):
@@ -44,7 +44,7 @@ composer require softan/connect-php-sdk:dev-main
 
 1. Instalar el SDK:
 ```bash
-composer require softan/connect-php-sdk:^0.0.3
+composer require softan/connect-php-sdk:^0.0.6
 ```
 
 2. Configurar credenciales:
@@ -99,7 +99,7 @@ php vendor/bin/connect-setup.php \
 php vendor/bin/connect-add-env.php
 ```
 
-Solicita: nombre del entorno, base URL, credenciales. Agrega el entorno a `sdk_config.json` sin pisar la configuración existente.
+Solicita: API Key, X-Connect-Info y App Identifier. Configura producción usando la base URL definida en `sdk_meta.json`, sin pisar la configuración existente.
 
 ### Cambiar entorno activo
 
