@@ -16,7 +16,7 @@ final class Services
     public static function requestToken(array $payload, ?array $headers = null, bool $verifyTLS = true): array
     {
         SDK::init();
-        self::require($payload, 'user_id', 'int');
+        self::require($payload, 'user_id', 'scalar');
 
         $headers  = $headers ?: Headers::buildRuntimeHeaders();
         $endpoint = Config::resolveEndpoint('tokens', 'create');
@@ -33,7 +33,7 @@ final class Services
     public static function tokenStatus(array $payload, ?array $headers = null, bool $verifyTLS = true): array
     {
         SDK::init();
-        self::require($payload, 'user_id', 'int');
+        self::require($payload, 'user_id', 'scalar');
         self::require($payload, 'token',   'string');
 
         $headers  = $headers ?: Headers::buildRuntimeHeaders();
@@ -54,7 +54,7 @@ final class Services
     public static function requestOtp(array $payload, ?array $headers = null, bool $verifyTLS = true): array
     {
         SDK::init();
-        self::require($payload, 'user_id', 'int');
+        self::require($payload, 'user_id', 'scalar');
 
         $headers  = $headers ?: Headers::buildRuntimeHeaders();
         $endpoint = Config::resolveEndpoint('otp', 'create');
@@ -116,7 +116,8 @@ final class Services
 
         $valid = match ($type) {
             'int'    => is_int($value),
-            'string' => is_string($value),
+            'string' => is_string($value) && $value !== '',
+            'scalar' => is_scalar($value) && trim((string) $value) !== '',
             'bool'   => is_bool($value),
             'array'  => is_array($value),
             default  => true,
