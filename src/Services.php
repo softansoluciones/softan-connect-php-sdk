@@ -71,8 +71,8 @@ final class Services
     public static function validateOtp(array $payload, ?array $headers = null, bool $verifyTLS = true): array
     {
         SDK::init();
-        self::require($payload, 'user_id',  'int');
-        self::require($payload, 'otp_code', 'int');
+        self::require($payload, 'user_id',  'scalar');
+        self::require($payload, 'otp_code', 'scalar');
 
         $headers  = $headers ?: Headers::buildRuntimeHeaders();
         $endpoint = Config::resolveEndpoint('otp', 'validate');
